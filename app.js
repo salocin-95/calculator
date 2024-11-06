@@ -63,6 +63,7 @@ operand.forEach(button => button.addEventListener("click", () => {
 // });
 
 // When an operator button is pushed a new event for the operand should start and assign the values in b. If an operand button or the result button is pressed the operation should occur.
+// Should assign the result to a new variable and display that result
 
 operator.forEach(button => button.addEventListener("click", () => {
 
