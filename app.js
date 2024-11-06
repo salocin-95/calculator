@@ -4,7 +4,11 @@ const operand = document.querySelectorAll(".operand")
 const operator = document.querySelectorAll(".operator")
 const displayOperation = document.querySelector(".operation")
 const displayResult = document.querySelector(".result")
+let a = '';
+let b = '';
+let c = '';
 
+// Operations
 const add = (a, b) => {
     return a + b;
 };
@@ -24,30 +28,54 @@ const divide = (a, b) => {
     return a / b;
 };
 
+// Calls the operations with two arguments
 const operate = (operator, a, b) => {
     return operator(a, b);
 };
 
+const chooseOperation = (operator) => {
+    switch(operator) {
+        case "+":
+            operate(add, a , b);
+            break;
+        case "-":
+            operate(substract, a , b);
+            break;
+        case "*":
+            operate(multiply, a, b);
+            break;
+        case "/":
+            operate(divide, a , b);
+            break;
+    }        
+}
+
+
 // Add an event listener to the document and targets the value of the button
 document.addEventListener("click", (event) => {
     if (event.target.matches(".operand")) {
-        displayOperation.innerHTML += `${event.target.value}`
+        a += (event.target.value)
+        displayOperation.innerHTML += event.target.value
         console.log(event.target.value)
     };
 });
 
 document.addEventListener("click", (event) => {
     if (event.target.matches(".operator")) {
-        displayOperation.innerHTML += `${event.target.value}`
+        c = event.target.value;
+        displayOperation.innerHTML += event.target.value
         console.log(event.target.value)
     };
 });
 
 showResult.addEventListener("click", () => {
-    displayResult.innerHTML = operate(multiply, 5, 5);
+    displayResult.innerHTML = operate(multiply, a, b);
 });
 
 clearButton.addEventListener("click", () => {
-    displayOperation.innerHTML = "<p></p>";
+    a = '';
+    b = '';
+    c = '';
+    displayOperation.innerHTML = "0";
     displayResult.innerHTML = "0";
 });
