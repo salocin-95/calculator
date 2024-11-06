@@ -19,15 +19,16 @@
     background-color: red;
     padding: 20px;
     border-radius: 15px;
+    box-shadow: 2px 2px 5px gray;
+}
+
+.operation {
+    font-size: 24px
 }
 
 .calculator-display {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    justify-content: end;
     width: 450px;
-    height: 50px;
+    height: 70px;
     padding: 5px;
     margin: 20px auto 20px;
     background-color: green;
@@ -37,11 +38,12 @@
 }
 
 .result {
-    font-size: 28px;
+    font-size: 24px;
 }
 
 button {
-    font-size: 50px;
+    background-color: antiquewhite;
+    font-size: 40px;
     font-weight: bold;
     width: 105px;
     height: 75px;
@@ -50,7 +52,13 @@ button {
     box-shadow: 3px 3px 5px black;
 }
 
+button:active {
+    background-color: aquamarine;
+}
+
 .button-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     padding: 5px;
     border-radius: 2px;
     background-color: grey;
