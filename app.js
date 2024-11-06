@@ -4,13 +4,13 @@ const operand = document.querySelectorAll(".operand")
 const operator = document.querySelectorAll(".operator")
 const displayOperation = document.querySelector(".operation")
 const displayResult = document.querySelector(".result")
-let a = 0;
-let b = 43;
+let a = '';
+let b = '';
 let c = '';
 
 // Operations
 const add = (a, b) => {
-    return a + b;
+    return parseInt(a) + parseInt(b);
 };
 
 const substract = (a, b) => {
@@ -44,10 +44,10 @@ const operate = (operator, a, b) => {
 // });
 
 operand.forEach(button => button.addEventListener("click", () => {
-
-    a += button.value;
     
-    displayOperation.innerHTML = a;
+    a += button.value
+
+    displayOperation.innerHTML += button.value;
 
 }));
 
@@ -66,25 +66,32 @@ operand.forEach(button => button.addEventListener("click", () => {
 // Should assign the result to a new variable and display that result
 
 operator.forEach(button => button.addEventListener("click", () => {
+        
+        b = a;
+        a = '';
 
-    document.addEventListener("click", (event) => {
-        if (event.target.matches(".operator")) {
-            c = (event.target.value)
-            displayOperation.innerHTML = event.target.value
-        };
-    });
+        document.addEventListener("click", (event) => {
+            if (event.target.matches(".operator")) {
+                c = (event.target.value)
+                displayOperation.innerHTML = ` ${b} ${event.target.value} `
+            };
 
-    console.log(c)
-    console.log(a)
+            console.log(c)
+            console.log(b)
+            console.log(a)
+        
+        });
 
 }));
 
 
 showResult.addEventListener("click", () => {
-
+    result = 0;
     switch(c) {
         case "+":
-            return displayResult.innerHTML += operate(add, a , b);
+            result += operate(add, a , b);
+            displayOperation.innerHTML = "0"
+            return displayResult.innerHTML = result;
         case "-":
             return displayResult.innerHTML += operate(substract, a , b);
         case "*":
@@ -92,13 +99,13 @@ showResult.addEventListener("click", () => {
         case "/":
             return displayResult.innerHTML += operate(divide, a , b);
     } 
-
+    
 });
 
 clearButton.addEventListener("click", () => {
     a = '';
     b = '';
     c = '';
-    displayOperation.innerHTML = "0";
+    displayOperation.innerHTML = "";
     displayResult.innerHTML = "";
 });
