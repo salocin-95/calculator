@@ -1,16 +1,15 @@
 const calculatorDisplay = document.querySelector('.calculator-display');
 const digits = document.querySelectorAll('.digits');
 const operand = document.querySelectorAll('.operand');
-let  display = [];
+let a = []
 let b = [];
 
 digits.forEach((button) => {
     
     button.addEventListener('click', () => {
 
-        display.push(button.value);
-        a = display.join('');
-        calculatorDisplay.innerHTML = a;
+        a.push(button.value);
+        calculatorDisplay.innerHTML = a.join('');
         console.log(button.value);
 
     });
@@ -20,7 +19,8 @@ digits.forEach((button) => {
 operand.forEach((button) => {
     
     button.addEventListener('click', () => {
-
+        b = a
+        a = [];
         switch (button.value) {
             case 'add':
                 return console.log(button.value)
