@@ -13,81 +13,53 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
-body {
-    background-color: var(--primary);
-}
-
-h1 {
-    font-size: 50px;
-    color: var(--option);
-    padding-top: 25px;
-    /*-webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: var(--secondary);*/
-    opacity: 0.9;
-}
-
-.page-wrapper {
+.page-wrapper { 
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-}
-
-.calculator-container {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--option);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 2px 2px 5px black;
-}
-
-.operation {
-    font-size: 30px;
-    font-weight: 500;
+    justify-content: space-between;
 }
 
 .calculator-display {
-    width: 450px;
+    font-size: 36px;
+    margin: 15px auto;
+    width: 400px;
     height: 70px;
-    padding: 5px;
-    margin: 20px auto 20px;
     background-color: green;
-    border-radius: 5px;
-    text-align: right;
-    box-shadow: inset 2px 2px black;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    box-shadow: 1px 1px 5px inset black;
 }
 
-.result {
-    font-size: 26px;
+.calculator-display span {
+    padding-right: 15px;
 }
 
-button {
-    background-color: antiquewhite;
-    font-size: 40px;
-    font-weight: bold;
-    width: 105px;
-    height: 75px;
-    margin: 2px;
-    border-radius: 5px;
-    box-shadow: 3px 3px 5px black;
-}
-
-button:active {
-    background-color: var(--buttons-active);
+.calculator-container {
+    padding: 10px;
+    background-color: #3d348b;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px grey;
 }
 
 .button-container {
+    margin: 5px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    padding: 5px;
-    border-radius: 2px;
-    background-color: grey;
+    grid-template-columns: repeat(4, 1fr)
 }
 
-footer {
-    padding-bottom: 25px;
-    color: var(--option);
-    opacity: 0.9;
+button {
+    font-size: 24px;
+    font-weight: bold;
+    height: 80px;
+    width: 100px;
+    margin: 1px;
+    border-radius: 5px;
+    background-color: #f7b801;
+}
+
+button:active {
+    background-color: #f35b04;
 }
