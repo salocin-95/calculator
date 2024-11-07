@@ -13,8 +13,20 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
+body {
+    background-color: #3d348b;
+}
+
 .title {
     padding-top: 3rem;
+    color: #f18701;
+
+}
+
+.title:hover {
+    padding-top: 3rem;
+    color: #f18701;  
+    animation: scale 1s;
 }
 
 .page-wrapper { 
@@ -31,18 +43,19 @@
     margin: 15px auto;
     width: 400px;
     height: 70px;
-    background-color: green;
+    background-color: rgb(130, 186, 47);
     display: flex;
     align-items: center;
     justify-content: end;
-    box-shadow: 1px 1px 5px inset black;
+    box-shadow: 2px 2px 5px inset black;
+    border-radius: 5px;
 }
 
 .calculator-container {
     padding: 10px;
-    background-color: #3d348b;
+    background-color: var(--secondary);
     border-radius: 10px;
-    box-shadow: 5px 5px 5px grey;
+    box-shadow: 3px 3px 10px black;
 }
 
 .button-container {
@@ -52,20 +65,28 @@
 }
 
 button {
-    font-size: 24px;
+    font-size: 40px;
     font-weight: bold;
-    height: 80px;
+    height: 70px;
     width: 100px;
     margin: 1px;
     border-radius: 5px;
-    background-color: #f7b801;
+    background-color: var(--accents);
+    box-shadow: 1px 1px 2px black;
 }
 
 button:active {
-    background-color: #f35b04;
+    background-color: var(--buttons-active);
 }
 
 .footer {
     text-align: center;
     padding-bottom: 1rem;
+    color: #f7b801;
+}
+
+@keyframes scale {
+    100% {
+        transform: scale(1.5);
+    }
 }
