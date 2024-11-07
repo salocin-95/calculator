@@ -13,6 +13,10 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
+.title {
+    padding-top: 3rem;
+}
+
 .page-wrapper { 
     height: 100vh;
     display: flex;
@@ -23,6 +27,7 @@
 
 .calculator-display {
     font-size: 36px;
+    padding-right: 5px;
     margin: 15px auto;
     width: 400px;
     height: 70px;
@@ -31,10 +36,6 @@
     align-items: center;
     justify-content: end;
     box-shadow: 1px 1px 5px inset black;
-}
-
-.calculator-display span {
-    padding-right: 15px;
 }
 
 .calculator-container {
@@ -62,4 +63,9 @@ button {
 
 button:active {
     background-color: #f35b04;
+}
+
+.footer {
+    text-align: center;
+    padding-bottom: 1rem;
 }
