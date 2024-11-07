@@ -1,15 +1,17 @@
 const calculatorDisplay = document.querySelector('.calculator-display');
 const digits = document.querySelectorAll('.digits');
 const operand = document.querySelectorAll('.operand');
-let a = []
-let b = [];
+
+let currentInput = [];
+let previousInput = [];
+let selectedOperator
 
 digits.forEach((button) => {
     
     button.addEventListener('click', () => {
 
-        a.push(button.value);
-        calculatorDisplay.innerHTML = a.join('');
+        currentInput.push(button.value);
+        calculatorDisplay.innerHTML = currentInput.join('');
         console.log(button.value);
 
     });
@@ -17,21 +19,58 @@ digits.forEach((button) => {
 });
 
 operand.forEach((button) => {
-    
+
     button.addEventListener('click', () => {
-        b = a
-        a = [];
+
+        if ((previousInput.length === 0) && (currentInput.length === 0)) {
+            console.log('empty input')
+        }
+
         switch (button.value) {
             case 'add':
-                return console.log(button.value)
+                // This should happen if the current input is empty to avoid NaN results
+                previousInput = currentInput;
+                currentInput = [];
+                selectedOperator = add;
+                console.log(previousInput);
+                console.log(currentInput);
+                break;
             case 'substract':
-                return console.log(button.value)
+                previousInput = currentInput;
+                currentInput = [];
+                selectedOperator = substract;
+                break;
             case 'multiply':
-                return console.log(button.value)
+                previousInput = currentInput;
+                currentInput = [];
+                selectedOperator = multiply;
+                break;
             case 'divide':
-                return console.log(button.value)
-        }
-    
+                previousInput = currentInput;
+                currentInput = [];
+                selectedOperator = divide;
+                break;
+            case 'result':
+
+                if (selectedOperator != '') {
+                    result = operate(selectedOperator, parseFloat(previousInput.join('')), parseFloat(currentInput.join('')))
+                    calculatorDisplay.innerHTML = result;
+                    currentInput = []
+                    currentInput.push(result)
+                }
+
+                selectedOperator = '';
+                break;
+            case 'clear':
+                currentInput = [];
+                previousInput = [];
+                selectedOperator = '';
+                calculatorDisplay.innerHTML = '0';
+            }
+            // case 'backspace':
+            //     currentInput.pop();
+            //     calculatorDisplay.innerHTML = currentInput.join('')
+
     });
 
 });
@@ -51,9 +90,9 @@ const multiply = (a, b) => {
 
 const divide = (a, b) => {
     if (b === 0) {
-        return `MATH ERROR / Can't divide by zero`
+        return `MATH ERROR`
     }
-    return a + b
+    return parseFloat(a / b).toFixed(1)
 }
 
 const operate = (operator, a, b) => {
