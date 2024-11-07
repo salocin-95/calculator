@@ -7,6 +7,7 @@ const displayResult = document.querySelector(".result")
 let a = '';
 let b = '';
 let c = '';
+let result = '';
 
 // Operations
 const add = (a, b) => {
@@ -44,7 +45,7 @@ const operate = (operator, a, b) => {
 // });
 
 operand.forEach(button => button.addEventListener("click", () => {
-    
+
     a += button.value
 
     displayOperation.innerHTML += button.value;
@@ -71,6 +72,22 @@ operator.forEach(button => button.addEventListener("click", () => {
         a = '';
 
         document.addEventListener("click", (event) => {
+
+            if (c != "") {
+
+                switch(c) {
+                    case "+":
+                        return displayResult.innerHTML = operate(add, a , b);
+                    case "-":
+                        return displayResult.innerHTML = operate(substract, a , b);
+                    case "*":
+                        return displayResult.innerHTML = operate(multiply, a, b);
+                    case "/":
+                        return displayResult.innerHTML = operate(divide, a , b);
+                } 
+
+            }
+
             if (event.target.matches(".operator")) {
                 c = (event.target.value)
                 displayOperation.innerHTML = ` ${b} ${event.target.value} `
@@ -86,12 +103,10 @@ operator.forEach(button => button.addEventListener("click", () => {
 
 
 showResult.addEventListener("click", () => {
-    result = 0;
     switch(c) {
         case "+":
             result += operate(add, a , b);
-            displayOperation.innerHTML = "0"
-            return displayResult.innerHTML = result;
+            return displayResult.innerHTML += operate(add, a , b);
         case "-":
             return displayResult.innerHTML += operate(substract, a , b);
         case "*":
