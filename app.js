@@ -114,6 +114,6 @@ const checkResult = () => {
     
 };
 
-function toggleLightMode() {
-    document.body.classList.toggle('light-mode');
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
 }
