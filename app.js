@@ -27,6 +27,15 @@ operand.forEach((button) => {
 
     button.addEventListener('click', () => {
         
+        // If button.value has a value in it then the function does the operation instead of having to push the equal button
+        // if (button.value !== '') {
+        //     switch (button.value) {
+        //         case 'add':
+        //             checkResult();
+        //             break;
+        //     }
+        // }
+
         if (currentInput.length) {
             switch (button.value) {
                 case 'add':
