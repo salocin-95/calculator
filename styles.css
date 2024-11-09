@@ -14,11 +14,11 @@
 }
 
 body {
-    background-color: #3d348b;
+    background-color: black;
 }
 
 .title {
-    padding-top: 3rem;
+    padding-top: 1rem;
     color: #f18701;
 
 }
@@ -53,9 +53,7 @@ body {
 
 .calculator-container {
     padding: 10px;
-    background-color: var(--secondary);
     border-radius: 10px;
-    box-shadow: 3px 3px 10px black;
 }
 
 .button-container {
@@ -76,6 +74,12 @@ button {
 }
 
 button:active {
+    box-shadow: 0 0 0 white;
+    transform: scale(0.9);
+}
+
+button:hover {
+    border: 1px solid white;
     background-color: var(--buttons-active);
 }
 
