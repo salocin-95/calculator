@@ -18,15 +18,8 @@ body {
 }
 
 .title {
-    padding-top: 1rem;
-    color: #f18701;
-
-}
-
-.title:hover {
-    padding-top: 3rem;
-    color: #f18701;  
-    animation: scale 1s;
+    padding-top: 1.5rem;
+    color: var(--accents);
 }
 
 .page-wrapper { 
@@ -49,11 +42,13 @@ body {
     justify-content: end;
     box-shadow: 2px 2px 5px inset black;
     border-radius: 5px;
+    border: 1px solid var(--accents);
 }
 
 .calculator-container {
     padding: 10px;
     border-radius: 10px;
+    border: 1px solid var(--accents);
 }
 
 .button-container {
