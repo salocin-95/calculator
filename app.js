@@ -10,10 +10,14 @@ let selectedOperator
 digits.forEach((button) => {
     
     button.addEventListener('click', () => {
+        
+        checkMathError(calculatorDisplay)
 
-        currentInput.push(button.value);
+        if (currentInput.length <= 16) {
+            currentInput.push(button.value);
+        } 
+
         calculatorDisplay.innerHTML = currentInput.join('');
-        console.log(button.value);
 
     });
 
@@ -22,55 +26,37 @@ digits.forEach((button) => {
 operand.forEach((button) => {
 
     button.addEventListener('click', () => {
+        
+        if (currentInput.length) {
+            switch (button.value) {
+                case 'add':
+                    previousInput = currentInput;
+                    currentInput = [];
+                    selectedOperator = add;
+                    break;
+                case 'subtract':
+                    previousInput = currentInput;
+                    currentInput = [];
+                    selectedOperator = subtract;
+                    break;
+                case 'multiply':
+                    previousInput = currentInput;
+                    currentInput = [];
+                    selectedOperator = multiply;
+                    break;
+                case 'divide':
+                    previousInput = currentInput;
+                    currentInput = [];
+                    selectedOperator = divide;
+                    break;
+                case 'result':
+                    checkResult();
+                    break;
+                case 'clear':
+                    clearDisplay();
+                };
 
-        if ((previousInput.length === 0) && (currentInput.length === 0)) {
-            console.log('empty input')
-        }
-
-        switch (button.value) {
-            case 'add':
-                // This should happen if the current input is empty to avoid NaN results
-                previousInput = currentInput;
-                currentInput = [];
-                selectedOperator = add;
-                console.log(previousInput);
-                console.log(currentInput);
-                break;
-            case 'substract':
-                previousInput = currentInput;
-                currentInput = [];
-                selectedOperator = substract;
-                break;
-            case 'multiply':
-                previousInput = currentInput;
-                currentInput = [];
-                selectedOperator = multiply;
-                break;
-            case 'divide':
-                previousInput = currentInput;
-                currentInput = [];
-                selectedOperator = divide;
-                break;
-            case 'result':
-
-                if (selectedOperator != '') {
-                    result = operate(selectedOperator, parseFloat(previousInput.join('')), parseFloat(currentInput.join('')))
-                    calculatorDisplay.innerHTML = result;
-                    currentInput = []
-                    currentInput.push(result)
-                }
-
-                selectedOperator = '';
-                break;
-            case 'clear':
-                currentInput = [];
-                previousInput = [];
-                selectedOperator = '';
-                calculatorDisplay.innerHTML = '0';
-            }
-            // case 'backspace':
-            //     currentInput.pop();
-            //     calculatorDisplay.innerHTML = currentInput.join('')
+        };
 
     });
 
@@ -78,24 +64,52 @@ operand.forEach((button) => {
 
 
 const add = (a, b) => {
-    return a + b
-}
+    return a + b;
+};
 
-const substract = (a, b) => {
-    return a - b
-}
+const subtract = (a, b) => {
+    return a - b;
+};
 
 const multiply = (a, b) => {
-    return a * b
-}
+    return a * b;
+};
 
 const divide = (a, b) => {
     if (b === 0) {
-        return `MATH ERROR`
-    }
-    return parseFloat(a / b).toFixed(1)
-}
+        return `MATH ERROR`;
+    };
+    return parseFloat(a / b).toFixed(1);
+};
 
 const operate = (operator, a, b) => {
     return operator(a, b);
-}
+};
+
+const clearDisplay = () => {
+    currentInput = [];
+    previousInput = [];
+    selectedOperator = '';
+    calculatorDisplay.innerHTML = '0';
+};
+
+const checkMathError = (element) => {
+    if (element.innerHTML === 'MATH ERROR') {
+        currentInput = [];
+        previousInput = [];
+        selectedOperator = '';
+    };
+};
+
+const checkResult = () => {
+
+    if (selectedOperator != '') {
+        result = operate(selectedOperator, parseFloat(previousInput.join('')), parseFloat(currentInput.join('')))
+        calculatorDisplay.innerHTML = result;
+        currentInput = [];
+        currentInput.push(result);
+    };
+
+    selectedOperator = '';
+    
+};
