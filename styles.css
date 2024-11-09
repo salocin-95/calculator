@@ -19,11 +19,11 @@
 }
 
 body {
-    background-color: var(--primary-dark);
+    background-color: white;
 }
 
 .light-mode {
-    background-color: white;
+    background-color: black;
 }
 
 .hero {
@@ -113,10 +113,4 @@ button:hover {
     text-align: center;
     padding-bottom: 1rem;
     color: #f7b801;
-}
-
-@keyframes scale {
-    100% {
-        transform: scale(1.5);
-    }
 }
