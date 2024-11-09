@@ -1,4 +1,4 @@
-//Should add function to limit the characters on the display to 17
+//Should add function to limit the characters on the display to 16
 const calculatorDisplay = document.querySelector('.calculator-display');
 const digits = document.querySelectorAll('.digits');
 const operand = document.querySelectorAll('.operand');
@@ -113,3 +113,7 @@ const checkResult = () => {
     selectedOperator = '';
     
 };
+
+function toggleLightMode() {
+    document.body.classList.toggle('light-mode');
+}

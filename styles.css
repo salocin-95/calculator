@@ -1,9 +1,14 @@
 :root {
-    --primary: #3d348b;
-    --secondary: #7678ed;
-    --accents: #f7b801;
-    --option: #f18701;
-    --buttons-active: #f35b04;
+    --primary-dark: black;
+    --secondary-dark: #7678ed;
+    --accents-dark: #f7b801;
+    --option-dark: #f18701;
+    --buttons-active-dark: #f35b04;
+    --primary-light: white;
+    --secondary-light: #7678ed;
+    --accents-light: #f7b801;
+    --option-light: #f18701;
+    --buttons-active-light: #f35b04;
 }
 
 *,
@@ -14,12 +19,22 @@
 }
 
 body {
-    background-color: black;
+    background-color: var(--primary-dark);
+}
+
+.light-mode {
+    background-color: white;
+}
+
+.hero {
+    padding-top: 1rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
 }
 
 .title {
-    padding-top: 1.5rem;
-    color: var(--accents);
+    color: var(--accents-dark);
 }
 
 .page-wrapper { 
@@ -42,19 +57,35 @@ body {
     justify-content: end;
     box-shadow: 2px 2px 5px inset black;
     border-radius: 5px;
-    border: 1px solid var(--accents);
+    border: 1px solid var(--accents-dark);
 }
 
 .calculator-container {
     padding: 10px;
     border-radius: 10px;
-    border: 1px solid var(--accents);
+    border: 1px solid var(--accents-dark);
 }
 
 .button-container {
     margin: 5px;
     display: grid;
     grid-template-columns: repeat(4, 1fr)
+}
+
+button#button-toggle {
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: var(--accents-dark);
+    box-shadow: 1px 1px 2px black;
+}
+
+button#button-toggle:hover {
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: var(--buttons-active-dark);
+    box-shadow: 1px 1px 2px black;
 }
 
 button {
@@ -64,7 +95,7 @@ button {
     width: 100px;
     margin: 1px;
     border-radius: 5px;
-    background-color: var(--accents);
+    background-color: var(--accents-dark);
     box-shadow: 1px 1px 2px black;
 }
 
@@ -75,7 +106,7 @@ button:active {
 
 button:hover {
     border: 1px solid white;
-    background-color: var(--buttons-active);
+    background-color: var(--buttons-active-dark);
 }
 
 .footer {
