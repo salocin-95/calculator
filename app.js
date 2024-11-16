@@ -1,75 +1,13 @@
 //Should add function to limit the characters on the display to 16
 const calculatorDisplay = document.querySelector('.calculator-display');
+const calculatorOperationDisplay = document.querySelector('.calculator-operation-display');
 const digits = document.querySelectorAll('.digits');
 const operand = document.querySelectorAll('.operand');
+const clearBtn = document.getElementById('clear')
 
 let currentInput = [];
 let previousInput = [];
 let selectedOperator
-
-digits.forEach((button) => {
-    
-    button.addEventListener('click', () => {
-        
-        checkMathError(calculatorDisplay)
-
-        if (currentInput.length <= 16) {
-            currentInput.push(button.value);
-        } 
-
-        calculatorDisplay.innerHTML = currentInput.join('');
-
-    });
-
-});
-
-operand.forEach((button) => {
-
-    button.addEventListener('click', () => {
-        
-        // If button.value has a value in it then the function does the operation instead of having to push the equal button
-        // if (button.value !== '') {
-        //     switch (button.value) {
-        //         case 'add':
-        //             checkResult();
-        //             break;
-        //     }
-        // }
-
-        if (currentInput.length) {
-            switch (button.value) {
-                case 'add':
-                    previousInput = currentInput;
-                    currentInput = [];
-                    selectedOperator = add;
-                    break;
-                case 'subtract':
-                    previousInput = currentInput;
-                    currentInput = [];
-                    selectedOperator = subtract;
-                    break;
-                case 'multiply':
-                    previousInput = currentInput;
-                    currentInput = [];
-                    selectedOperator = multiply;
-                    break;
-                case 'divide':
-                    previousInput = currentInput;
-                    currentInput = [];
-                    selectedOperator = divide;
-                    break;
-                case 'result':
-                    checkResult();
-                    break;
-                case 'clear':
-                    clearDisplay();
-                };
-
-        };
-
-    });
-
-});
 
 
 const add = (a, b) => {
@@ -91,16 +29,21 @@ const divide = (a, b) => {
     return parseFloat(a / b).toFixed(1);
 };
 
-const operate = (operator, a, b) => {
-    return operator(a, b);
+const operate = (operation, a, b) => {
+    return operation(a, b);
 };
 
 const clearDisplay = () => {
     currentInput = [];
     previousInput = [];
     selectedOperator = '';
+    calculatorOperationDisplay.innerHTML = '<span style="opacity: 0">0</span>'
     calculatorDisplay.innerHTML = '0';
 };
+
+const updateDisplay = (operator, a, b) => {
+    calculatorOperationDisplay.innerHTML = `${b} ${operator} ${a}`
+}
 
 const checkMathError = (element) => {
     if (element.innerHTML === 'MATH ERROR') {
@@ -111,18 +54,90 @@ const checkMathError = (element) => {
 };
 
 const checkResult = () => {
+    
 
     if (selectedOperator != '') {
         result = operate(selectedOperator, parseFloat(previousInput.join('')), parseFloat(currentInput.join('')))
         calculatorDisplay.innerHTML = result;
+        updateDisplay(displayOperation, currentInput.join(''), previousInput.join(''))
         currentInput = [];
         currentInput.push(result);
     };
-
-    selectedOperator = '';
     
+    
+
 };
 
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
 }
+
+digits.forEach((button) => {
+    
+    button.addEventListener('click', () => {
+        
+        checkMathError(calculatorDisplay)
+
+        if (currentInput.length <= 16) {
+            currentInput.push(button.value);
+        } 
+
+        calculatorDisplay.innerHTML = currentInput.join('');
+
+    });
+
+});
+
+operand.forEach((button) => {
+
+    button.addEventListener('click', () => {
+
+        if (currentInput.length) {
+            switch (button.value) {
+                case 'add':
+                    displayOperation = '+'
+                    selectedOperator = add;
+                    if (currentInput.length && previousInput.length) {
+                        checkResult()
+                    }
+                    previousInput = currentInput;
+                    currentInput = [];
+                    break;
+                case 'subtract':
+                    displayOperation = '-'
+                    selectedOperator = subtract;
+                    if (currentInput.length && previousInput.length) {
+                        checkResult()
+                    }
+                    previousInput = currentInput;
+                    currentInput = [];
+                    break;
+                case 'multiply':
+                    displayOperation = '*'
+                    selectedOperator = multiply;
+                    if (currentInput.length && previousInput.length) {
+                        checkResult()
+                    }
+                    previousInput = currentInput;
+                    currentInput = [];
+                    break;
+                case 'divide':
+                    displayOperation = '/'
+                    selectedOperator = divide;
+                    if (currentInput.length && previousInput.length) {
+                        checkResult()
+                    }
+                    previousInput = currentInput;
+                    currentInput = [];
+                    break;
+                case 'result':
+                    checkResult();
+                    break;
+            }
+        }
+    });
+});
+
+clearBtn.addEventListener('click', () => {
+    clearDisplay();
+});
