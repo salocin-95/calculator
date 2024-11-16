@@ -37,12 +37,13 @@ const clearDisplay = () => {
     currentInput = [];
     previousInput = [];
     selectedOperator = '';
+    result = 0;
     calculatorOperationDisplay.innerHTML = '<span style="opacity: 0">0</span>'
     calculatorDisplay.innerHTML = '0';
 };
 
 const updateDisplay = (operator, a, b) => {
-    calculatorOperationDisplay.innerHTML = `${b} ${operator} ${a}`
+    calculatorOperationDisplay.innerHTML = `${a} ${operator} ${b}`
 }
 
 const checkMathError = (element) => {
@@ -54,16 +55,15 @@ const checkMathError = (element) => {
 };
 
 const checkResult = () => {
-    
+
 
     if (selectedOperator != '') {
         result = operate(selectedOperator, parseFloat(previousInput.join('')), parseFloat(currentInput.join('')))
         calculatorDisplay.innerHTML = result;
-        updateDisplay(displayOperation, currentInput.join(''), previousInput.join(''))
-        currentInput = [];
-        currentInput.push(result);
+        updateDisplay(displayOperation, previousInput.join(''), currentInput.join(''))
+        previousInput = []; 
+        previousInput.push(result);
     };
-    
     
 
 };
@@ -78,7 +78,7 @@ digits.forEach((button) => {
         
         checkMathError(calculatorDisplay)
 
-        if (currentInput.length <= 16) {
+        if (currentInput.length <= 14) {
             currentInput.push(button.value);
         } 
 
@@ -92,43 +92,49 @@ operand.forEach((button) => {
 
     button.addEventListener('click', () => {
 
-        if (currentInput.length) {
+        if (currentInput.length >= 1) {
+            console.log(currentInput, previousInput, selectedOperator)
             switch (button.value) {
                 case 'add':
                     displayOperation = '+'
                     selectedOperator = add;
+                    updateDisplay(displayOperation, currentInput.join(''), '')
+                    previousInput = currentInput
+                    currentInput = [];
                     if (currentInput.length && previousInput.length) {
                         checkResult()
                     }
-                    previousInput = currentInput;
-                    currentInput = [];
                     break;
                 case 'subtract':
                     displayOperation = '-'
                     selectedOperator = subtract;
+                    updateDisplay(displayOperation, currentInput.join(''), '')
+                    previousInput = currentInput
+                    currentInput = []
                     if (currentInput.length && previousInput.length) {
                         checkResult()
                     }
-                    previousInput = currentInput;
-                    currentInput = [];
                     break;
                 case 'multiply':
                     displayOperation = '*'
                     selectedOperator = multiply;
+                    updateDisplay(displayOperation, currentInput.join(''), '')
+                    previousInput = currentInput
+                    currentInput = []
                     if (currentInput.length && previousInput.length) {
                         checkResult()
                     }
-                    previousInput = currentInput;
-                    currentInput = [];
                     break;
                 case 'divide':
+                    console.log(currentInput, previousInput, selectedOperator)
                     displayOperation = '/'
                     selectedOperator = divide;
+                    updateDisplay(displayOperation, currentInput.join(''), '')
+                    previousInput = currentInput
+                    currentInput = []
                     if (currentInput.length && previousInput.length) {
                         checkResult()
                     }
-                    previousInput = currentInput;
-                    currentInput = [];
                     break;
                 case 'result':
                     checkResult();
