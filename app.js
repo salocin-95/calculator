@@ -98,43 +98,28 @@ operand.forEach((button) => {
                 case 'add':
                     displayOperation = '+'
                     selectedOperator = add;
-                    updateDisplay(displayOperation, currentInput.join(''), '')
                     previousInput = currentInput
-                    currentInput = [];
-                    if (currentInput.length && previousInput.length) {
-                        checkResult()
-                    }
+                    currentInput = []
+                    if (currentInput.length > 0 && previousInput.length > 0) {
+                        previousInput = checkResult()
+                    } 
+                    updateDisplay(displayOperation, previousInput.join(''), '')
                     break;
                 case 'subtract':
                     displayOperation = '-'
                     selectedOperator = subtract;
-                    updateDisplay(displayOperation, currentInput.join(''), '')
-                    previousInput = currentInput
-                    currentInput = []
-                    if (currentInput.length && previousInput.length) {
-                        checkResult()
-                    }
+                    updateDisplay(displayOperation, previousInput.join(''), '')
                     break;
                 case 'multiply':
                     displayOperation = '*'
                     selectedOperator = multiply;
-                    updateDisplay(displayOperation, currentInput.join(''), '')
-                    previousInput = currentInput
-                    currentInput = []
-                    if (currentInput.length && previousInput.length) {
-                        checkResult()
-                    }
+                    updateDisplay(displayOperation, previousInput.join(''), '')
                     break;
                 case 'divide':
                     console.log(currentInput, previousInput, selectedOperator)
                     displayOperation = '/'
                     selectedOperator = divide;
-                    updateDisplay(displayOperation, currentInput.join(''), '')
-                    previousInput = currentInput
-                    currentInput = []
-                    if (currentInput.length && previousInput.length) {
-                        checkResult()
-                    }
+                    updateDisplay(displayOperation, previousInput.join(''), '')
                     break;
                 case 'result':
                     checkResult();
