@@ -1,5 +1,6 @@
 const calculatorDisplay = document.querySelector('.calculator-display');
 const calculatorOperationDisplay = document.querySelector('.calculator-operation-display');
+const specialButtons = document.querySelectorAll('.special-operations')
 const digits = document.querySelectorAll('.digits');
 const operand = document.querySelectorAll('.operand');
 const clearBtn = document.getElementById('clear')
@@ -72,16 +73,43 @@ function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
 }
 
+specialButtons.forEach((button) => {
+
+    button.addEventListener('click', () => {
+        switch(button.value) {
+            case 'backspace':
+                if (currentInput.length > 0     ) {
+                    currentInput.pop()
+                    calculatorDisplay.innerHTML = currentInput.join('')
+                } else {
+                    currentInput = []
+                    calculatorDisplay.innerHTML = '<span style="opacity: 0">0</span>'
+                }
+            break
+            case 'decimal':
+                if (currentInput.includes('.')) {
+                    console.log()
+                }
+                else {
+                    currentInput.push('.')
+                }
+            break
+        }
+
+    });
+
+});
+
 digits.forEach((button) => {
     
     button.addEventListener('click', () => {
         
         checkMathError(calculatorDisplay)
 
-        if (currentInput.length > 0 && previousInput.length > 0) {
-            currentInput = [];
-            previousInput = [];
-        }
+        // if (currentInput.length > 0 && previousInput.length > 0) {
+        //     currentInput = [];
+        //     previousInput = [];
+        // }
 
         if (currentInput.length <= 14) {
             currentInput.push(button.value);
@@ -98,7 +126,7 @@ operand.forEach((button) => {
     button.addEventListener('click', () => {
 
         if (currentInput.length >= 1) {
-            switch (button.value) {              
+            switch(button.value) {              
                 case 'add':
                     if (currentInput.length > 0 && previousInput.length > 0) {
                         selectedOperator = add;
