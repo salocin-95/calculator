@@ -1,4 +1,3 @@
-//Should add function to limit the characters on the display to 16
 const calculatorDisplay = document.querySelector('.calculator-display');
 const calculatorOperationDisplay = document.querySelector('.calculator-operation-display');
 const digits = document.querySelectorAll('.digits');
@@ -47,22 +46,23 @@ const updateDisplay = (operator, a, b) => {
 }
 
 const checkMathError = (element) => {
+
     if (element.innerHTML === 'MATH ERROR') {
-        currentInput = [];
-        previousInput = [];
+        currentInput = 0;
+        previousInput = 0;
         selectedOperator = '';
     };
+
+
 };
 
 const checkResult = () => {
 
-
     if (selectedOperator != '') {
         result = operate(selectedOperator, parseFloat(previousInput.join('')), parseFloat(currentInput.join('')))
-        calculatorDisplay.innerHTML = result;
-        updateDisplay(displayOperation, previousInput.join(''), currentInput.join(''))
         previousInput = []; 
         previousInput.push(result);
+        calculatorOperationDisplay.innerHTML = previousInput;
     };
     
 
@@ -77,6 +77,11 @@ digits.forEach((button) => {
     button.addEventListener('click', () => {
         
         checkMathError(calculatorDisplay)
+
+        if (currentInput.length > 0 && previousInput.length > 0) {
+            currentInput = [];
+            previousInput = [];
+        }
 
         if (currentInput.length <= 14) {
             currentInput.push(button.value);
@@ -93,36 +98,81 @@ operand.forEach((button) => {
     button.addEventListener('click', () => {
 
         if (currentInput.length >= 1) {
-            console.log(currentInput, previousInput, selectedOperator)
-            switch (button.value) {
+            switch (button.value) {              
                 case 'add':
-                    displayOperation = '+'
-                    selectedOperator = add;
-                    previousInput = currentInput
-                    currentInput = []
                     if (currentInput.length > 0 && previousInput.length > 0) {
-                        previousInput = checkResult()
-                    } 
-                    updateDisplay(displayOperation, previousInput.join(''), '')
-                    break;
+                        selectedOperator = add;
+                        displayOperation = '+';
+                        checkResult();
+                        updateDisplay(displayOperation, previousInput.join(''), '');
+                        currentInput = [];
+                        calculatorDisplay.innerHTML = '<span style="opacity: 0">0</span>'
+                    } else {
+                        previousInput = currentInput;
+                        currentInput = [];
+                        displayOperation = '+';
+                        selectedOperator = add;
+                        updateDisplay(displayOperation, previousInput.join(''), '');
+                    }
+                    break
                 case 'subtract':
-                    displayOperation = '-'
-                    selectedOperator = subtract;
-                    updateDisplay(displayOperation, previousInput.join(''), '')
-                    break;
+                    if (currentInput.length > 0 && previousInput.length > 0) {
+                        selectedOperator = subtract;
+                        displayOperation = '-';
+                        checkResult();
+                        updateDisplay(displayOperation, previousInput.join(''), '');
+                        currentInput = [];
+                        calculatorDisplay.innerHTML = '<span style="opacity: 0">0</span>'
+                    } else {
+                        previousInput = currentInput;
+                        currentInput = [];
+                        displayOperation = '-';
+                        selectedOperator = subtract;
+                        updateDisplay(displayOperation, previousInput.join(''), '');
+                    }
+                    break
                 case 'multiply':
-                    displayOperation = '*'
-                    selectedOperator = multiply;
-                    updateDisplay(displayOperation, previousInput.join(''), '')
-                    break;
+                    if (currentInput.length > 0 && previousInput.length > 0) {
+                        selectedOperator = multiply;
+                        displayOperation = '*';
+                        checkResult();
+                        updateDisplay(displayOperation, previousInput.join(''), '');
+                        currentInput = [];
+                        calculatorDisplay.innerHTML = '<span style="opacity: 0">0</span>'
+                    } else {
+                        previousInput = currentInput;
+                        currentInput = [];
+                        displayOperation = '*';
+                        selectedOperator = multiply;
+                        updateDisplay(displayOperation, previousInput.join(''), '');
+                    }
+                    break
                 case 'divide':
-                    console.log(currentInput, previousInput, selectedOperator)
-                    displayOperation = '/'
-                    selectedOperator = divide;
-                    updateDisplay(displayOperation, previousInput.join(''), '')
-                    break;
+                    if (currentInput.length > 0 && previousInput.length  > 0) {
+                        selectedOperator = divide;
+                        displayOperation = '/';
+                        checkResult();
+                        updateDisplay(displayOperation, previousInput.join(''), '');
+                        currentInput = [];
+                        calculatorDisplay.innerHTML = '<span style="opacity: 0">0</span>'
+                    } else {
+                        previousInput = currentInput;
+                        currentInput = [];
+                        displayOperation = '/';
+                        selectedOperator = divide;
+                        updateDisplay(displayOperation, previousInput.join(''), '');
+                    }
+                    break
                 case 'result':
-                    checkResult();
+                    if (currentInput.length > 0 && previousInput.length === 0) {
+                        previousInput = currentInput;
+                        currentInput = []
+                        updateDisplay(displayOperation, previousInput.join(''), '')
+                    } else {
+                        checkResult();
+                        updateDisplay(displayOperation, previousInput.join(''), currentInput.join(''))
+                        calculatorDisplay.innerHTML = result;
+                    }
                     break;
             }
         }
