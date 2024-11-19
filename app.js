@@ -49,8 +49,8 @@ const updateDisplay = (operator, a, b) => {
 const checkMathError = (element) => {
 
     if (element.innerHTML === 'MATH ERROR') {
-        currentInput = 0;
-        previousInput = 0;
+        currentInput = [];
+        previousInput = [];
         selectedOperator = '';
     };
 
@@ -76,26 +76,37 @@ function toggleDarkMode() {
 specialButtons.forEach((button) => {
 
     button.addEventListener('click', () => {
-        switch(button.value) {
-            case 'backspace':
-                if (currentInput.length > 0     ) {
-                    currentInput.pop()
-                    calculatorDisplay.innerHTML = currentInput.join('')
-                } else {
-                    currentInput = []
-                    calculatorDisplay.innerHTML = '<span style="opacity: 0">0</span>'
-                }
-            break
-            case 'decimal':
-                if (currentInput.includes('.')) {
-                    console.log()
-                }
-                else {
-                    currentInput.push('.')
-                }
-            break
+        if (currentInput.length > 0) {
+            switch(button.value) {
+                case 'backspace':
+                    if (currentInput.length > 0) {
+                        currentInput.pop()
+                        calculatorDisplay.innerHTML = currentInput.join('')
+                    } else {
+                        currentInput = []
+                        calculatorDisplay.innerHTML = '<span style="opacity: 0">0</span>'
+                    }
+                break
+                case 'decimal':
+                    if (currentInput.includes('.')) {
+                        return
+                    }
+                    else {
+                        currentInput.push('.')
+                    }
+                break
+                case 'negative':
+                    if (currentInput.includes('-')) {
+                        currentInput.shift()
+                    } else {
+                        currentInput.unshift('-')
+                    }
+                    calculatorDisplay.innerHTML = currentInput.join('')  
+                break
+            }
+    
         }
-
+    
     });
 
 });
@@ -105,11 +116,6 @@ digits.forEach((button) => {
     button.addEventListener('click', () => {
         
         checkMathError(calculatorDisplay)
-
-        // if (currentInput.length > 0 && previousInput.length > 0) {
-        //     currentInput = [];
-        //     previousInput = [];
-        // }
 
         if (currentInput.length <= 14) {
             currentInput.push(button.value);
@@ -131,7 +137,6 @@ operand.forEach((button) => {
                     if (currentInput.length > 0 && previousInput.length > 0) {
                         selectedOperator = add;
                         displayOperation = '+';
-                        checkResult();
                         updateDisplay(displayOperation, previousInput.join(''), '');
                         currentInput = [];
                         calculatorDisplay.innerHTML = '<span style="opacity: 0">0</span>'
@@ -147,7 +152,6 @@ operand.forEach((button) => {
                     if (currentInput.length > 0 && previousInput.length > 0) {
                         selectedOperator = subtract;
                         displayOperation = '-';
-                        checkResult();
                         updateDisplay(displayOperation, previousInput.join(''), '');
                         currentInput = [];
                         calculatorDisplay.innerHTML = '<span style="opacity: 0">0</span>'
@@ -163,7 +167,6 @@ operand.forEach((button) => {
                     if (currentInput.length > 0 && previousInput.length > 0) {
                         selectedOperator = multiply;
                         displayOperation = '*';
-                        checkResult();
                         updateDisplay(displayOperation, previousInput.join(''), '');
                         currentInput = [];
                         calculatorDisplay.innerHTML = '<span style="opacity: 0">0</span>'
@@ -179,7 +182,6 @@ operand.forEach((button) => {
                     if (currentInput.length > 0 && previousInput.length  > 0) {
                         selectedOperator = divide;
                         displayOperation = '/';
-                        checkResult();
                         updateDisplay(displayOperation, previousInput.join(''), '');
                         currentInput = [];
                         calculatorDisplay.innerHTML = '<span style="opacity: 0">0</span>'
